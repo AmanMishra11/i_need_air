@@ -1,0 +1,16 @@
+target/
+.tools/
+.idea/
+*.iml
+*.log
+.env
+.env.*
+!.env.example
+data/
+*.db
+recommendation-model/data/raw/*
+!recommendation-model/data/raw/.gitkeep
+recommendation-model/data/processed/*
+!recommendation-model/data/processed/.gitkeep
+recommendation-model/data/feedback/*
+!recommendation-model/data/feedback/.gitkeep
