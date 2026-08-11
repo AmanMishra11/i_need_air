@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ineedair.ui.MainController" styleClass="app-shell">
+    <top>
+        <VBox spacing="14" styleClass="top-bar">
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label text="I Need Air" styleClass="app-title" />
+                    <Label text="Find a better place to breathe today." styleClass="app-subtitle" />
+                </VBox>
+                <Label text="● LIVE DATA" styleClass="live-badge" />
+            </HBox>
+            <HBox spacing="10">
+                <TextField fx:id="locationSearch" onAction="#search" promptText="Search a city, address, or landmark" HBox.hgrow="ALWAYS" styleClass="search-field" />
+                <Button onAction="#beginLocationPick" text="Set current location" styleClass="secondary-button" />
+                <ChoiceBox fx:id="moodChoice" styleClass="mood-choice" />
+                <ChoiceBox fx:id="radiusChoice" styleClass="radius-choice" />
+                <Button onAction="#search" text="Search map" styleClass="primary-button" />
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <HBox spacing="16" styleClass="content-area">
+            <VBox spacing="10" HBox.hgrow="ALWAYS" styleClass="map-column">
+                <AnchorPane VBox.vgrow="ALWAYS" styleClass="map-frame">
+                    <WebView fx:id="mapView" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
+                </AnchorPane>
+                <Label text="Search results" styleClass="section-title" />
+                <ListView fx:id="resultsList" prefHeight="130" styleClass="results-list" />
+            </VBox>
+            <VBox prefWidth="350" spacing="16" styleClass="details-panel">
+                <Label text="DESTINATION HEALTH" styleClass="eyebrow" />
+                <Label fx:id="locationName" text="Choose a place on the map" wrapText="true" styleClass="location-name" />
+                <Button onAction="#saveFavourite" text="♡ Save destination" styleClass="save-button" />
+                <Button onAction="#openTripPlanner" text="Plan this trip" styleClass="primary-button" />
+                <Separator />
+                <HBox spacing="14">
+                    <VBox styleClass="metric-card" HBox.hgrow="ALWAYS">
+                        <Label text="US AQI" styleClass="metric-label" />
+                        <Label fx:id="aqiValue" text="—" styleClass="metric-value" />
+                    </VBox>
+                    <VBox styleClass="metric-card" HBox.hgrow="ALWAYS">
+                        <Label text="PM2.5" styleClass="metric-label" />
+                        <Label fx:id="pm25Value" text="—" styleClass="metric-small-value" />
+                    </VBox>
+                </HBox>
+                <VBox styleClass="score-card">
+                    <Label text="OUTDOOR COMFORT SCORE" styleClass="metric-label" />
+                    <Label fx:id="scoreValue" text="—" styleClass="score-value" />
+                    <Label text="AQI carries the highest weight; temperature, rain and wind complete the score." wrapText="true" styleClass="score-help" />
+                </VBox>
+                <VBox styleClass="weather-card">
+                    <Label text="CURRENT WEATHER" styleClass="metric-label" />
+                    <Label fx:id="weatherValue" text="—" styleClass="weather-value" />
+                </VBox>
+                <Label text="BEST PLACES TO VISIT" styleClass="eyebrow" />
+                <ListView fx:id="leaderboardList" prefHeight="180" styleClass="leaderboard-list" />
+                <Label text="SAVED PLACES" styleClass="eyebrow" />
+                <ListView fx:id="favouritesList" prefHeight="100" styleClass="favourites-list" />
+                <VBox VBox.vgrow="ALWAYS" />
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <ProgressIndicator fx:id="loadingIndicator" prefHeight="18" prefWidth="18" />
+                    <Label fx:id="statusLabel" text="Search a destination to begin." wrapText="true" styleClass="status-label" />
+                </HBox>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>
