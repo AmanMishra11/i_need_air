@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ineedair.ui.DestinationDetailsController" styleClass="app-shell">
+    <top>
+        <VBox spacing="14" styleClass="top-bar">
+            <HBox spacing="14" alignment="CENTER_LEFT">
+                <Button text="← Back" onAction="#goBack" styleClass="secondary-button" />
+                <VBox HBox.hgrow="ALWAYS">
+                    <Label fx:id="destinationName" text="Destination" styleClass="app-title" />
+                    <Label text="Build a trip around your dates, air quality, weather, and travel style." styleClass="app-subtitle" />
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <HBox spacing="20" styleClass="content-area">
+            <VBox prefWidth="350" spacing="16" styleClass="details-panel">
+                <Label text="LIVE CONDITIONS" styleClass="eyebrow" />
+                <Label fx:id="airLabel" text="—" styleClass="weather-value" />
+                <Label fx:id="weatherLabel" text="—" styleClass="weather-value" />
+                <Label text="TRIP DATES" styleClass="eyebrow" />
+                <Label text="Start" styleClass="metric-label" />
+                <DatePicker fx:id="startDate" />
+                <Label text="End" styleClass="metric-label" />
+                <DatePicker fx:id="endDate" />
+                <Label text="TRAVEL STYLE" styleClass="eyebrow" />
+                <ChoiceBox fx:id="intentChoice" />
+                <Button text="Generate full itinerary" onAction="#generateItinerary" styleClass="primary-button" />
+                <Label fx:id="statusLabel" text="Choose dates, then generate a plan." wrapText="true" styleClass="status-label" />
+                <Label text="Optional local AI: install Ollama and run ‘ollama pull llama3.2’. Without it, I Need Air uses its built-in planner." wrapText="true" styleClass="status-label" />
+            </VBox>
+            <VBox spacing="10" HBox.hgrow="ALWAYS" styleClass="details-panel">
+                <Label text="YOUR TRAVEL ITINERARY" styleClass="eyebrow" />
+                <TextArea fx:id="itineraryText" editable="false" wrapText="true" promptText="Your personalized day-by-day itinerary will appear here." VBox.vgrow="ALWAYS" styleClass="itinerary-text" />
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>
