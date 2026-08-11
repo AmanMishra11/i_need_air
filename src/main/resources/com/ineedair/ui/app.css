@@ -1,0 +1,32 @@
+.app-shell { -fx-background-color: #f3f7f6; -fx-font-family: "Segoe UI"; }
+.top-bar { -fx-padding: 24 30 20 30; -fx-background-color: linear-gradient(to right, #102a31, #194a50); }
+.app-title { -fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: 800; }
+.app-subtitle { -fx-text-fill: #b8d3d0; -fx-font-size: 13px; }
+.live-badge { -fx-text-fill: #d5ffb3; -fx-font-size: 11px; -fx-font-weight: 700; -fx-padding: 7 10; -fx-background-color: #2d6157; -fx-background-radius: 16; }
+.search-field { -fx-font-size: 14px; -fx-pref-height: 42; -fx-background-radius: 8; }
+.radius-choice { -fx-pref-width: 115; -fx-pref-height: 42; -fx-background-radius: 8; }
+.mood-choice { -fx-pref-width: 140; -fx-pref-height: 42; -fx-background-radius: 8; }
+.secondary-button { -fx-pref-height: 42; -fx-text-fill: white; -fx-background-color: #2d6157; -fx-background-radius: 8; }
+.primary-button { -fx-pref-height: 42; -fx-text-fill: #092027; -fx-font-weight: 700; -fx-background-color: #b9edb8; -fx-background-radius: 8; }
+.content-area { -fx-padding: 20 30 28 30; }
+.map-frame { -fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, #0000001c, 14, 0, 0, 3); -fx-padding: 1; }
+.map-column { -fx-min-width: 600; }
+.section-title { -fx-text-fill: #38535b; -fx-font-size: 13px; -fx-font-weight: 700; }
+.results-list { -fx-background-radius: 8; -fx-border-color: #dce8e6; -fx-border-radius: 8; }
+.leaderboard-list { -fx-background-radius: 8; -fx-border-color: #dce8e6; -fx-border-radius: 8; -fx-font-size: 12px; }
+.favourites-list { -fx-background-radius: 8; -fx-border-color: #dce8e6; -fx-border-radius: 8; }
+.save-button { -fx-text-fill: #154853; -fx-font-weight: 700; -fx-background-color: #e6f3ef; -fx-background-radius: 8; }
+.itinerary-text { -fx-font-family: "Segoe UI"; -fx-font-size: 14px; -fx-background-radius: 8; }
+.details-panel { -fx-padding: 22; -fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, #00000016, 12, 0, 0, 2); }
+.eyebrow, .metric-label { -fx-text-fill: #698187; -fx-font-size: 10px; -fx-font-weight: 800; }
+.location-name { -fx-text-fill: #193139; -fx-font-size: 19px; -fx-font-weight: 700; }
+.metric-card { -fx-padding: 14; -fx-background-color: #eef7f4; -fx-background-radius: 9; }
+.metric-value { -fx-text-fill: #154853; -fx-font-size: 29px; -fx-font-weight: 800; }
+.metric-small-value { -fx-text-fill: #154853; -fx-font-size: 16px; -fx-font-weight: 700; }
+.score-card { -fx-padding: 18; -fx-background-color: #173f47; -fx-background-radius: 10; }
+.score-card .metric-label, .score-help { -fx-text-fill: #b9d4cf; }
+.score-value { -fx-text-fill: #d8ffb4; -fx-font-size: 33px; -fx-font-weight: 800; }
+.score-help { -fx-font-size: 11px; }
+.weather-card { -fx-padding: 15; -fx-background-color: #fbf5e6; -fx-background-radius: 9; }
+.weather-value { -fx-text-fill: #675420; -fx-font-size: 17px; -fx-font-weight: 700; }
+.status-label { -fx-text-fill: #62767a; -fx-font-size: 12px; }
