@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>html,body,#map{height:100%;margin:0;background:#e8f0f2}.leaflet-control-attribution{font:10px system-ui}.place-guide{font:13px/1.4 system-ui;color:#1d3439}.place-guide h3{margin:9px 0 4px;font-size:17px}.place-guide p{margin:4px 0 9px}.place-guide ul{margin:4px 0 8px;padding-left:20px}.guide-heading{font-weight:700;margin-top:8px}.place-guide small{color:#63777a}.place-photo{width:100%;max-height:145px;object-fit:cover;border-radius:6px}</style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    const map = L.map('map', {zoomControl: false}).setView([20.5937, 78.9629], 5);
+    L.control.zoom({position:'bottomright'}).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+    const markers = [];
+    let originMarker;
+    let pickingCurrentLocation = false;
+    function clearMarkers() { markers.splice(0).forEach(marker => map.removeLayer(marker)); }
+    function showSearchResults(...places) {
+      clearMarkers();
+      const bounds = [];
+      places.forEach(place => {
+        const marker = L.marker([place.lat, place.lon]).bindPopup(place.name).addTo(map);
+        marker.on('click', () => requestGuide(place));
+        markers.push(marker); bounds.push([place.lat, place.lon]);
+      });
+      if (bounds.length === 1) map.setView(bounds[0], 10);
+      if (bounds.length > 1) map.fitBounds(bounds, {padding:[35,35]});
+    }
+    function showOrigin(place) {
+      if (originMarker) map.removeLayer(originMarker);
+      originMarker = L.circleMarker([place.lat, place.lon], {radius:10, color:'#123f48', fillColor:'#b9edb8', fillOpacity:1, weight:3})
+        .bindPopup('<b>Your starting point</b><br>' + place.name).addTo(map).openPopup();
+      originMarker.on('click', () => requestGuide(place));
+      map.setView([place.lat, place.lon], 10);
+    }
+    function showLeaderboard(...places) {
+      clearMarkers();
+      const bounds = originMarker ? [originMarker.getLatLng()] : [];
+      places.forEach((place, index) => {
+        const marker = L.marker([place.lat, place.lon]).bindPopup('<b>#' + (index + 1) + '</b><br>' + place.name).addTo(map);
+        marker.on('click', () => requestGuide(place));
+        markers.push(marker); bounds.push([place.lat, place.lon]);
+      });
+      if (bounds.length > 1) map.fitBounds(bounds, {padding:[45,45]});
+    }
+    function focusPlace(place) {
+      map.setView([place.lat, place.lon], 11);
+      const marker = markers.find(item => item.getLatLng().lat === place.lat && item.getLatLng().lng === place.lon);
+      if (marker) marker.openPopup();
+    }
+    function enableLocationPick() { pickingCurrentLocation = true; map.getContainer().style.cursor = 'crosshair'; }
+    map.on('click', event => {
+      if (pickingCurrentLocation && window.javaBridge) {
+        pickingCurrentLocation = false; map.getContainer().style.cursor = '';
+        window.javaBridge.chooseCurrentLocation(event.latlng.lat, event.latlng.lng);
+      }
+    });
+    function requestGuide(place) {
+      if (window.javaBridge) window.javaBridge.selectDestination(place.name, place.lat, place.lon);
+    }
+    function escapeHtml(value) {
+      return String(value || '').replace(/[&<>'"]/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[character]));
+    }
+    function showPlaceGuide(guide) {
+      const marker = markers.find(item => String(item.getPopup().getContent()).includes(guide.name));
+      const image = guide.imageUrl ? '<img src="' + escapeHtml(guide.imageUrl) + '" class="place-photo" alt="' + escapeHtml(guide.name) + '">' : '';
+      const highlights = guide.nearbyHighlights && guide.nearbyHighlights.length
+        ? '<div class="guide-heading">Nearby places to visit</div><ul>' + guide.nearbyHighlights.map(item => '<li>' + escapeHtml(item) + '</li>').join('') + '</ul>'
+        : '<div class="guide-heading">Things to do</div><p>Explore the local centre, landmarks, and cultural spaces.</p>';
+      const markup = '<article class="place-guide">' + image + '<h3>' + escapeHtml(guide.name) + '</h3><p>' + escapeHtml(guide.summary) + '</p>' + highlights + '<small>Information and image: Wikipedia</small></article>';
+      if (marker) marker.bindPopup(markup, {maxWidth: 300, minWidth: 260}).openPopup();
+    }
+  </script>
+</body>
+</html>
