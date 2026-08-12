@@ -1,0 +1,12 @@
+{
+  "modelVersion": 1,
+  "name": "india-hybrid-baseline",
+  "features": {
+    "aqiSafety": 0.40,
+    "preferenceMatch": 0.25,
+    "popularity": 0.15,
+    "travelEase": 0.10,
+    "weatherSuitability": 0.10
+  },
+  "notes": "A transparent pre-feedback baseline. Replace weights with train_from_feedback.py after enough opt-in interactions exist."
+}
