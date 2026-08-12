@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "required": ["placeId", "name", "latitude", "longitude", "categories", "popularity"],
+  "properties": {
+    "placeId": {"type": "string", "description": "Stable OSM or Wikidata identifier"},
+    "name": {"type": "string"},
+    "latitude": {"type": "number"},
+    "longitude": {"type": "number"},
+    "categories": {"type": "array", "items": {"type": "string"}},
+    "popularity": {"type": "number", "minimum": 0, "maximum": 1},
+    "osmTagCount": {"type": "integer", "minimum": 0},
+    "wikidataId": {"type": "string"},
+    "wikipediaTitle": {"type": "string"}
+  }
+}
